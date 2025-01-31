@@ -31,7 +31,6 @@ def MainAccount():
                 print("Acceso permitido")
             else:
                 messagebox.showerror("003", "User or Password incorrect")
-
         else:
             messagebox.showerror("002", "Data Base error")
     else:
