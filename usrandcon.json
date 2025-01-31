@@ -1,5 +1,14 @@
-{
-    "usuario": "juanperez", "contraseña": "pepito123",
-    "edad": 28,
-    "activo": true
-}
+[
+    {
+        "usuario": "juanperez",
+        "contraseña": "secreta123"
+    },
+    {
+        "usuario": "mariafernandez",
+        "contraseña": "mypassword456"
+    },
+    {
+        "usuario": "carlosgomez",
+        "contraseña": "password789"
+    }
+]
