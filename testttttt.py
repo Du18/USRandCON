@@ -3,27 +3,38 @@ from tkinter import messagebox
 from PIL import ImageTk, Image
 from time import sleep
 import requests
+import socket
 
+def VerifyInternet(host="8.8.8.8", port=53, timeout=3):
+    try:
+        socket.setdefaulttimeout(timeout)
+        socket.create_connection((host, port))
+        return True  
+    except socket.error:
+        return False
+    
 url = 'https://raw.githubusercontent.com/Du18/USRandCON/refs/heads/main/usrandcon.json'
 def MainAccount():
-    response = requests.get(url)
-    if response.status_code == 200:
-        usuarios = response.json()
-        def UserBrowse(usuario_buscado, contrasena_buscada):
-            for usuario in usuarios:
-                if usuario["usuario"] == usuario_buscado and usuario["contraseña"] == contrasena_buscada:
-                    return True  
-            return False 
-        usuario_buscado = Usertext.get()
-        contrasena_buscada = ConText.get()
+    if VerifyInternet():
+        response = requests.get(url)
+        if response.status_code == 200:
+            usuarios = response.json()
+            def UserBrowse(usuario_buscado, contrasena_buscada):
+                for usuario in usuarios:
+                    if usuario["usuario"] == usuario_buscado and usuario["contraseña"] == contrasena_buscada:
+                        return True  
+                return False 
+            usuario_buscado = Usertext.get()
+            contrasena_buscada = ConText.get()
 
-        if UserBrowse(usuario_buscado, contrasena_buscada):
-            print("Acceso permitido")
+            if UserBrowse(usuario_buscado, contrasena_buscada):
+                print("Acceso permitido")
+            else:
+                messagebox.showerror("003", "User or Password incorrect")
         else:
-            messagebox.showerror("002", "User or Password incorrect")
-
+            messagebox.showerror("002", "Data Base error")
     else:
-        messagebox.showerror("001", "Data Base Error")
+        messagebox.showerror("001", "Red connection error")
 
 mainGUI = tkinter.Tk()
 mainGUI.title("JoTha")
